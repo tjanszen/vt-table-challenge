@@ -4,11 +4,45 @@ html
     meta(charset='utf-8')      
     title Apollo
     link(rel='stylesheet', href='/vendor/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/vendor/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href=isProd ? '/index.min.css' : '/index.css')
     link(rel='shortcut icon', href='/favicon.ico')
   body
-    img#apollo(src='/assets/apollo.jpg')
-    h1#title Apollo
+    #form-row.row
+    //- form.form-inline
+    //-     .form-group
+    //-       label(for='first') First     
+    //-       input#first.form-control(type='text', placeholder='First')
+    //-     .form-group
+    //-       label(for='last') Last
+    //-       input#last.form-control(type='text', placeholder='Last')
+    //-     .form-group
+    //-       label(for='company') Company
+    //-       input#company.form-control(type='text', placeholder='Company')
+    //-     .form-group
+    //-       label(for='city') City
+    //-       input#city.form-control(type='text', placeholder='City')
+    //-     .form-group
+    //-       label(for='county') County
+    //-       input#county.form-control(type='text', placeholder='County')
+    //-     .form-group
+    //-       label(for='state') State
+    //-       input#state.form-control(type='text', placeholder='State')
+    //-     .form-group
+    //-       label(for='zip') Zip
+    //-       input#zip.form-control(type='text', placeholder='Zip')
+    //-     button.btn.btn-default(type='submit') Add
+    .row
+      .col-sm-offset-2.col-sm-8
+        table.table.table-hover.company-table
+            thead
+              tr#tabel-head-row
+            tbody#table-body
+    .row#paginationContainer
+      
+                
 
+    
+    script(src='/vendor/jquery/dist/jquery.js')
     script(src='/vendor/lodash/lodash.min.js')
     script(src=isProd ? '/index.min.js' : '/index.js')
