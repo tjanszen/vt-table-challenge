@@ -1,88 +1,54 @@
 'use strict';
 
-$(document).ready(init);
+var fields;
+var items;
 
-function init() {
+$(document).ready(function(){
   var data = 'https://dl.dropboxusercontent.com/u/59995695/input.json';
-  displayLabels(data);
-  displayData(data);
-}
-
-function displayLabels(data) {
-  var $tr = $('#tabel-head-row');
   $.getJSON(data, function(response){
-    var fields = response.fields;
-    fields.forEach(function(field){
+    fields = response.fields;
+    items = response.values;
+
+    displayFields(fields);
+    displayItems(items);
+  })
+
+  function displayFields(fields) {
+    var $tr = $('#tabel-head-row');
+    fields.forEach(function(field) {
+      var category = field.label;
       var $th = $('<th></th>');
-      var $a = $('<a></a>');
-      $a.text(field.label)
-      $th.append($a);
+      $th.addClass('headers');
+      $th.text(category);
       $tr.append($th);
     })
-  })
-}
-
-function displayData(data) {
-  var $table = $('#table-body');
-  $.getJSON(data, function(response){
-    var values = response.values
-    var numValues = values.length
-    values.forEach(function(value){
-      var $tr = $('<tr></tr>');
-      $tr.addClass('items')
-      value.forEach(function(prop){
-        var $td = $('<td></td>');
-        $td.text(prop);
-        $tr.append($td);
-      })
-      $table.append($tr);
-    })
-    customPaginate(numValues);
-  })
-}
-
-//
-// function paginate() {
-//   $('.pagination').customPaginate({
-//     itemsToPaginate : '.items'
-//   });
-// }
-
-function customPaginate(num) {
-  var paginationContainer = $('#paginationContainer')
-  // console.log('totals items numbers passed into customPaginator', num);
-  // console.log('total items on the page', itemsToPaginate.length)
-
-  var defaults = {
-    itemsPerPage: 10,
-    itemsToPaginate: $('.items')
-  };
-
-  // var settings = {};
-  // $.extend(settings, defaults, options);
-
-  var itemsToPaginate = $(defaults.itemsToPaginate);
-  var numberOfPaginationLinks = Math.ceil(itemsToPaginate.length / defaults.itemsPerPage)
-  console.log('number of pagination links', numberOfPaginationLinks)
-
-  var $div = $('<div></div>');
-  $div.addClass('col-sm-offset-2 col-sm-8')
-
-  $div.prependTo(paginationContainer)
-
-  for(var i = 0; i < numberOfPaginationLinks; i++){
-    paginationContainer.find('.col-sm-offset-2').append('<button class="btn btn-default">'+ (i+1) + '</button>')
   }
 
-  itemsToPaginate.filter(":gt(" + (defaults.itemsPerPage - 1) + ")").hide();
+  function displayItems(items) {
+    var $tableBody = $('#table-body');
+    items.forEach(function(item) {
+      var $tr = $('<tr></tr>');
+      $tr.addClass('item-table-row');
+      item.forEach(function(data) {
+        var $td = $('<td></td>');
+        $td.text(data);
+        $tr.append($td);
+      });
+      $tableBody.append($tr);
+    });
+    customFilter()
+  }
 
-  paginationContainer.find('button').on('click', function(){
-    var linkNumber = $(this).text();
-    var itemsToHide = itemsToPaginate.filter(":lt(" + ((linkNumber-1) * defaults.itemsPerPage) + ")");
-    $.merge(itemsToHide, itemsToPaginate.filter(":gt(" + ((linkNumber * defaults.itemsPerPage) - 1) + ")"));
-    itemsToHide.hide();
-
-    var itemsToShow = itemsToPaginate.not(itemsToHide);
-    itemsToShow.show();
-  })
-}
+  function customFilter() {
+    var $tableHeaders = $('.headers');
+    $('table')
+    .tablesorter({
+      widthFixed: true,
+      widgets: ['zebra']
+      })
+    .tablesorterPager({
+      container: $("#pager"),
+      size:50
+      });
+  }
+});

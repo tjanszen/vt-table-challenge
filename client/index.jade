@@ -9,40 +9,57 @@ html
     link(rel='shortcut icon', href='/favicon.ico')
   body
     #form-row.row
-    //- form.form-inline
-    //-     .form-group
-    //-       label(for='first') First     
-    //-       input#first.form-control(type='text', placeholder='First')
-    //-     .form-group
-    //-       label(for='last') Last
-    //-       input#last.form-control(type='text', placeholder='Last')
-    //-     .form-group
-    //-       label(for='company') Company
-    //-       input#company.form-control(type='text', placeholder='Company')
-    //-     .form-group
-    //-       label(for='city') City
-    //-       input#city.form-control(type='text', placeholder='City')
-    //-     .form-group
-    //-       label(for='county') County
-    //-       input#county.form-control(type='text', placeholder='County')
-    //-     .form-group
-    //-       label(for='state') State
-    //-       input#state.form-control(type='text', placeholder='State')
-    //-     .form-group
-    //-       label(for='zip') Zip
-    //-       input#zip.form-control(type='text', placeholder='Zip')
-    //-     button.btn.btn-default(type='submit') Add
+    form.form-inline
+      .form-group
+        label(for='first') First     
+        input#first.form-control(type='text', placeholder='First')
+      .form-group
+        label(for='last') Last
+        input#last.form-control(type='text', placeholder='Last')
+      .form-group
+        label(for='company') Company
+        input#company.form-control(type='text', placeholder='Company')
+      .form-group
+        label(for='city') City
+        input#city.form-control(type='text', placeholder='City')
+      .form-group
+        label(for='county') County
+        input#county.form-control(type='text', placeholder='County')
+      .form-group
+        label(for='state') State
+        input#state.form-control(type='text', placeholder='State')
+      .form-group
+        label(for='zip') Zip
+        input#zip.form-control(type='text', placeholder='Zip')
+      button.btn.btn-default(type='submit') Add
+    .row#pager
+      #pager.pager
+        form
+            img.first(src='images/first.png')
+            img.prev(src='images/prev.png')
+            input.pagedisplay(type='text')
+            img.next(src='images/next.png')
+            img.last(src='images/last.png')
+            //- select.pagesize
+            //-   option(value='50')
+            //-   option(value='2') 2 per page
+            //-   option(value='5') 5 per page
+            //-   option(value='10') 10 per page
+
+      .col-sm-offset-2.col-sm-8.pagination-col
     .row
       .col-sm-offset-2.col-sm-8
-        table.table.table-hover.company-table
-            thead
+        table.table.table-hover.company-table#companies
+            thead#table-head
               tr#tabel-head-row
             tbody#table-body
-    .row#paginationContainer
+              
       
                 
 
     
     script(src='/vendor/jquery/dist/jquery.js')
     script(src='/vendor/lodash/lodash.min.js')
+    script(src='/vendor/jquery.tablesorter/dist/js/jquery.tablesorter.min.js')
+    script(src='/vendor/jquery.tablesorter/addons/pager/jquery.tablesorter.pager.js')
     script(src=isProd ? '/index.min.js' : '/index.js')
