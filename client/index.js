@@ -10,8 +10,33 @@ $(document).ready(function(){
     items = response.values;
 
     displayFields(fields);
-    displayItems(items);
+    displayItems();
+    getFormData();
+    // customFilter();
   })
+
+  function getFormData() {
+    var newItem = [];
+    $('#form-row').submit(function(event) {
+      //Prevent page from reloading
+      event.preventDefault();
+      //
+      var $inputs = $('#new-item-form :input');
+      $inputs.each(function() {
+        if(this.value !== ""){
+          if(this.type === "number"){
+            newItem.push(parseInt(this.value));
+            this.value = ""
+          }else{
+            newItem.push(this.value);
+            this.value = ""
+          }
+        }
+      })
+      addItemToPage(newItem);
+      newItem = [];
+    })
+  }
 
   function displayFields(fields) {
     var $tr = $('#tabel-head-row');
@@ -24,11 +49,12 @@ $(document).ready(function(){
     })
   }
 
-  function displayItems(items) {
+  function displayItems() {
     var $tableBody = $('#table-body');
     items.forEach(function(item) {
       var $tr = $('<tr></tr>');
       $tr.addClass('item-table-row');
+      $tr.attr("role", "row");
       item.forEach(function(data) {
         var $td = $('<td></td>');
         $td.text(data);
@@ -36,7 +62,27 @@ $(document).ready(function(){
       });
       $tableBody.append($tr);
     });
-    customFilter()
+    customFilter();
+  }
+
+  function addItemToPage(item) {
+    // items.push(item);
+    // $('.item-table-row').remove();
+    // console.log('the new array ite array items', items);
+    // displayItems();
+
+    var $tableBody = $('#table-body');
+    var $tr = $('<tr></tr>');
+    $tr.addClass('item-table-row odd');
+    $tr.attr("role", "row");
+    $tr.attr("style", "display: none");
+    item.forEach(function(data) {
+      var $td = $('<td></td>');
+      $td.text(data);
+      $tr.append($td);
+    });
+    $tableBody.append($tr);
+    $('table').trigger("update"); 
   }
 
   function customFilter() {
