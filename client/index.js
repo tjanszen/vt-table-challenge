@@ -4,15 +4,21 @@ var fields;
 var items;
 
 $(document).ready(function(){
+  //Get data
   var data = 'https://dl.dropboxusercontent.com/u/59995695/input.json';
   $.getJSON(data, function(response){
+    //Save fields to global variable *fields*
     fields = response.fields;
+    //Save item arrays to global variable *items*
     items = response.values;
-
+    //Call function to create and display table headers
     displayFields(fields);
+    //Call function to create and display all table rows
     displayItems();
+    //Setup function for collection form input data
     getFormData();
-    // customFilter();
+    //Setup function for showing and hiding the 'add new items' form
+    showHideForm()
   })
 
   function getFormData() {
@@ -20,7 +26,6 @@ $(document).ready(function(){
     $('#form-row').submit(function(event) {
       //Prevent page from reloading
       event.preventDefault();
-      //
       var $inputs = $('#new-item-form :input');
       $inputs.each(function() {
         if(this.value !== ""){
@@ -66,11 +71,6 @@ $(document).ready(function(){
   }
 
   function addItemToPage(item) {
-    // items.push(item);
-    // $('.item-table-row').remove();
-    // console.log('the new array ite array items', items);
-    // displayItems();
-
     var $tableBody = $('#table-body');
     var $tr = $('<tr></tr>');
     $tr.addClass('item-table-row odd');
@@ -82,7 +82,7 @@ $(document).ready(function(){
       $tr.append($td);
     });
     $tableBody.append($tr);
-    $('table').trigger("update"); 
+    $('table').trigger("update");
   }
 
   function customFilter() {
@@ -96,5 +96,11 @@ $(document).ready(function(){
       container: $("#pager"),
       size:50
       });
+  }
+
+  function showHideForm() {
+    $('#show-form').click(function() {
+      $('#new-item-form').toggleClass('show');
+    })
   }
 });

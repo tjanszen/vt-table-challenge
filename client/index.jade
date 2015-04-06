@@ -9,40 +9,43 @@ html
     link(rel='shortcut icon', href='/favicon.ico')
   body
     .row.container-fluid
-      .col-sm-12.col-md-3
+      .col-sm-offset-2.col-sm-8
+        .row
+          button.btn.btn-default#show-form
+            i.fa.fa-plus
         .row#form-row
           form.form-inline#new-item-form(name='items')
             .form-group
               label(for='first') First     
-              input#first.form-control(type='text', name='first', placeholder='First')
+              input.new-item-inputs#first.form-control(type='text', name='first')
             .form-group
               label(for='last') Last
-              input#last.form-control(type='text', name='last', placeholder='Last')
+              input.new-item-inputs#last.form-control(type='text', name='last')
             .form-group
               label(for='company') Company
-              input#company.form-control(type='text', name='company', placeholder='Company')
+              input.new-item-inputs#company.form-control(type='text', name='company')
             .form-group
               label(for='city') City
-              input#city.form-control(type='text', name='city', placeholder='City')
+              input.new-item-inputs#city.form-control(type='text', name='city')
             .form-group
               label(for='county') County
-              input#county.form-control(type='text', name='county', placeholder='County')
+              input.new-item-inputs#county.form-control(type='text', name='county')
             .form-group
               label(for='state') State
-              input#state.form-control(type='text', name='state', placeholder='State')
+              input.new-item-inputs#state.form-control(type='text', name='state')
             .form-group
               label(for='zip') Zip
-              input#zip.form-control(type='number', name='zip', placeholder='Zip')
-            button.btn.btn-default(type='submit') Add
-      .col-sm-12.col-md-9
+              input.new-item-inputs#zip.form-control(type='number', name='zip')
+            button.btn.btn-default#submit-form-btn(type='submit') Add Company
+      .col-sm-12
         .row#pager
           #pager.pager
             form
-                img.first(src='images/first.png')
-                img.prev(src='images/prev.png')
+                i.fa.fa-fast-backward.first(src='images/first.png')
+                i.fa.fa-step-backward.prev(src='images/prev.png')
                 input.pagedisplay(type='text')
-                img.next(src='images/next.png')
-                img.last(src='images/last.png')
+                i.fa.fa-step-forward.next(src='images/next.png')
+                i.fa.fa-fast-forward.last(src='images/last.png')
                 //- select.pagesize
                 //-   option(value='50')
                 //-   option(value='2') 2 per page
@@ -56,6 +59,7 @@ html
                 thead#table-head
                   tr#tabel-head-row
                 tbody#table-body
+                  
                   
     script(src='/vendor/jquery/dist/jquery.js')
     script(src='/vendor/lodash/lodash.min.js')
